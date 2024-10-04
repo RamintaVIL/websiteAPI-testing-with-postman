@@ -78,9 +78,7 @@
 					"listen": "prerequest",
 					"script": {
 						"exec": [
-							"let randomString = Math.random().toString(36).substring(2, 10); ",
-							"let uniqueEmail = `user_${randomString}@example.com`;",
-							"pm.environment.set(\"uniqueEmail\", uniqueEmail);"
+							""
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -100,7 +98,7 @@
 						},
 						{
 							"key": "email",
-							"value": "{{uniqueEmail}}",
+							"value": "a@a.lt",
 							"type": "text"
 						},
 						{
