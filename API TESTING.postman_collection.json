@@ -17,10 +17,10 @@
 							"    pm.response.to.have.status(200);",
 							"});",
 							"",
-							"pm.test(\"Response is JSON format\", function () {",
+							"pm.test(\"Response is JSON format\", () => {",
 							"    pm.response.to.be.json;",
 							"});",
-							"pm.test(\"Product list are not an empty\", function () {",
+							"pm.test(\"Product list are not an empty\", () => {",
 							"    const jsonData = pm.response.json();",
 							"    pm.expect(jsonData.products).to.be.an('array').that.is.not.empty;",
 							"});",
@@ -58,14 +58,14 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Response code is 200\", function () {",
+							"pm.test(\"Response code is 200\", () => {",
 							"    pm.response.to.have.status(200);",
 							"});",
 							"pm.test('Response is JSON format', () => {",
 							"     pm.response.to.be.json;",
 							"});",
 							"",
-							"pm.test(\"Response have correct answer\", function () {",
+							"pm.test(\"Response have correct answer\", () => {",
 							"    const jsonData = pm.response.json();",
 							"    pm.expect(jsonData.message).to.eql(\"User created!\");",
 							"});"
@@ -200,19 +200,19 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Response code is 200\", function () {",
+							"pm.test(\"Response code is 200\", () =>  {",
 							"    pm.response.to.have.status(200);",
 							"});",
 							"pm.test('Response is JSON format', () => {",
 							"     pm.response.to.be.json;",
 							"});",
 							"",
-							"pm.test(\"Response have correct answer\", function () {",
+							"pm.test(\"Response have correct answer\", () => {",
 							"    const jsonData = pm.response.json();",
 							"    pm.expect(jsonData.message).to.eql(\"This request method is not supported.\");",
 							"});",
 							"",
-							"pm.test(\"Response have correct responseCode\", function () {",
+							"pm.test(\"Response have correct responseCode\", () => {",
 							"    var jsonData = pm.response.json();",
 							"    pm.expect(jsonData.responseCode).to.eql(405);",
 							"});"
@@ -248,7 +248,7 @@
 					"script": {
 						"exec": [
 							"// Defined jsonData before using it in the test script",
-							"pm.test(\"Response code is 200\", function () {",
+							"pm.test(\"Response code is 200\", () => {",
 							"    pm.response.to.have.status(200);",
 							"});",
 							"pm.test('Response is JSON format', () => {",
