@@ -172,7 +172,8 @@
 							"    const jsonData = pm.response.json();",
 							"    pm.expect(jsonData.responseCode).to.eql(201);",
 							"    pm.expect(jsonData.message).to.eql(\"User created!\");",
-							"});"
+							"});",
+							""
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -193,99 +194,8 @@
 				"method": "POST",
 				"header": [],
 				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "name",
-							"value": "John Moon\n",
-							"type": "text"
-						},
-						{
-							"key": "password",
-							"value": "password12",
-							"type": "text"
-						},
-						{
-							"key": "title",
-							"value": "Mr",
-							"type": "text"
-						},
-						{
-							"key": "birth_date",
-							"value": "15",
-							"type": "text"
-						},
-						{
-							"key": "birth_month",
-							"value": "April",
-							"type": "text"
-						},
-						{
-							"key": "birth_year",
-							"value": "1995",
-							"type": "text"
-						},
-						{
-							"key": "firstname",
-							"value": "John\n",
-							"type": "text"
-						},
-						{
-							"key": "lastname",
-							"value": "Moon",
-							"type": "text"
-						},
-						{
-							"key": "company",
-							"value": "John's Company",
-							"type": "text"
-						},
-						{
-							"key": "address1",
-							"value": "123 Main St",
-							"type": "text"
-						},
-						{
-							"key": "address2",
-							"value": "Apt 4B",
-							"type": "text"
-						},
-						{
-							"key": "country",
-							"value": "USA",
-							"type": "text"
-						},
-						{
-							"key": "zipcode",
-							"value": "90210",
-							"type": "text"
-						},
-						{
-							"key": "state",
-							"value": "California",
-							"type": "text"
-						},
-						{
-							"key": "city",
-							"value": "Los Angeles",
-							"type": "text"
-						},
-						{
-							"key": "mobile_number",
-							"value": "1234567890",
-							"type": "text"
-						},
-						{
-							"key": "email",
-							"value": "{{randomEmail}}",
-							"type": "text"
-						},
-						{
-							"key": "id",
-							"value": "",
-							"type": "text"
-						}
-					]
+					"mode": "urlencoded",
+					"urlencoded": []
 				},
 				"url": {
 					"raw": "https://automationexercise.com/api/createAccount",
@@ -297,6 +207,83 @@
 					"path": [
 						"api",
 						"createAccount"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "14.GET user account detail by email",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test('Response is JSON format', () => {",
+							"     pm.response.to.be.json;",
+							"});",
+							"pm.test('Response contains correct user details', () => {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('user');",
+							"",
+							"    pm.expect(jsonData.user).to.have.property('id');",
+							"    pm.expect(jsonData.user).to.have.property('name');",
+							"    pm.expect(jsonData.user).to.have.property('email');",
+							"    pm.expect(jsonData.user).to.have.property('title');",
+							"",
+							"    pm.expect(jsonData.user).to.have.property('birth_day');",
+							"    pm.expect(jsonData.user).to.have.property('birth_month');",
+							"    pm.expect(jsonData.user).to.have.property('birth_year');",
+							"",
+							"    pm.expect(jsonData.user).to.have.property('first_name');",
+							"    pm.expect(jsonData.user).to.have.property('last_name');",
+							"",
+							"    pm.expect(jsonData.user).to.have.property('company');",
+							"    pm.expect(jsonData.user).to.have.property('address1');",
+							"    pm.expect(jsonData.user).to.have.property('address2');",
+							"",
+							"    pm.expect(jsonData.user).to.have.property('country');",
+							"    pm.expect(jsonData.user).to.have.property('state');",
+							"    pm.expect(jsonData.user).to.have.property('city');",
+							"    pm.expect(jsonData.user).to.have.property('zipcode');",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "https://automationexercise.com/api/getUserDetailByEmail?email=johndoe@example.com",
+					"protocol": "https",
+					"host": [
+						"automationexercise",
+						"com"
+					],
+					"path": [
+						"api",
+						"getUserDetailByEmail"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "johndoe@example.com"
+						}
 					]
 				}
 			},
@@ -460,7 +447,7 @@
 							"",
 							"pm.test(\"Response have correct answer\", () => {",
 							"    const jsonData = pm.response.json();",
-							"    pm.expect(jsonData.message).to.eql(\"User created!\");",
+							"    pm.expect(jsonData.message).to.eql(\"User updated!\");",
 							"});"
 						],
 						"type": "text/javascript",
@@ -613,64 +600,6 @@
 					"path": [
 						"api",
 						"deleteAccount"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "14.GET user account detail by email",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Response code is 200\", () => {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"pm.test('Response is JSON format', () => {",
-							"     pm.response.to.be.json;",
-							"});",
-							"pm.test('Response have user details', () => {",
-							"    const jsonData = pm.response.json();",
-							"    pm.expect(jsonData).to.have.property('user');",
-							"    pm.expect(jsonData.user).to.have.property('name');",
-							"    pm.expect(jsonData.user).to.have.property('email');",
-							"    pm.expect(jsonData.user).to.have.property('title');",
-							"    pm.expect(jsonData.user).to.have.property('birth_day');",
-							"    pm.expect(jsonData.user).to.have.property('birth_month');",
-							"    pm.expect(jsonData.user).to.have.property('birth_year');",
-							"    pm.expect(jsonData.user).to.have.property('first_name');",
-							"    pm.expect(jsonData.user).to.have.property('last_name');",
-							"    pm.expect(jsonData.user).to.have.property('company');",
-							"});",
-							"",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://automationexercise.com/api/getUserDetailByEmail?email=johndoe@example.com",
-					"protocol": "https",
-					"host": [
-						"automationexercise",
-						"com"
-					],
-					"path": [
-						"api",
-						"getUserDetailByEmail"
-					],
-					"query": [
-						{
-							"key": "email",
-							"value": "johndoe@example.com"
-						}
 					]
 				}
 			},
