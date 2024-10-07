@@ -20,6 +20,7 @@
 							"pm.test(\"Response is JSON format\", () => {",
 							"    pm.response.to.be.json;",
 							"});",
+							"",
 							"pm.test(\"Product list are not an empty\", () => {",
 							"    const jsonData = pm.response.json();",
 							"    pm.expect(jsonData.products).to.be.an('array').that.is.not.empty;",
@@ -61,12 +62,14 @@
 							"pm.test(\"Response code is 200\", () => {",
 							"    pm.response.to.have.status(200);",
 							"});",
+							"",
 							"pm.test('Response is JSON format', () => {",
 							"     pm.response.to.be.json;",
 							"});",
 							"",
 							"pm.test(\"Response have correct answer\", () => {",
 							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData.responseCode).to.eql(405);",
 							"    pm.expect(jsonData.message).to.eql(\"This request method is not supported.\");",
 							"});"
 						],
@@ -123,13 +126,10 @@
 							"",
 							"pm.test(\"Response have correct answer\", () => {",
 							"    const jsonData = pm.response.json();",
+							"     pm.expect(jsonData.responseCode).to.eql(405);",
 							"    pm.expect(jsonData.message).to.eql(\"This request method is not supported.\");",
 							"});",
-							"",
-							"pm.test(\"Response have correct responseCode\", () => {",
-							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData.responseCode).to.eql(405);",
-							"});"
+							""
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -170,6 +170,7 @@
 							"",
 							"pm.test(\"Response have correct answer\", () => {",
 							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData.responseCode).to.eql(201);",
 							"    pm.expect(jsonData.message).to.eql(\"User created!\");",
 							"});"
 						],
@@ -444,6 +445,113 @@
 			"response": []
 		},
 		{
+			"name": "13.PUT to update user account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test('Response is JSON format', () => {",
+							"     pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Response have correct answer\", () => {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData.message).to.eql(\"User created!\");",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "company",
+							"value": "Example Corp",
+							"type": "text"
+						},
+						{
+							"key": "address1",
+							"value": "456 Park Avenue",
+							"type": "text"
+						},
+						{
+							"key": "address2",
+							"value": "Apt 4B",
+							"type": "text"
+						},
+						{
+							"key": "country",
+							"value": "Canada",
+							"type": "text"
+						},
+						{
+							"key": "zipcode",
+							"value": "A1B 2C3",
+							"type": "text"
+						},
+						{
+							"key": "state",
+							"value": "Ontario",
+							"type": "text"
+						},
+						{
+							"key": "city",
+							"value": "Toronto",
+							"type": "text"
+						},
+						{
+							"key": "mobile_number",
+							"value": "+14165550123",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "tesst@example.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test123",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://automationexercise.com/api/updateAccount",
+					"protocol": "https",
+					"host": [
+						"automationexercise",
+						"com"
+					],
+					"path": [
+						"api",
+						"updateAccount"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "12.DELETE to user account",
 			"event": [
 				{
@@ -517,7 +625,6 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"// Defined jsonData before using it in the test script",
 							"pm.test(\"Response code is 200\", () => {",
 							"    pm.response.to.have.status(200);",
 							"});",
@@ -545,21 +652,9 @@
 					}
 				}
 			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"email\": \"johndoe@example.com\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
 				"url": {
 					"raw": "https://automationexercise.com/api/getUserDetailByEmail?email=johndoe@example.com",
 					"protocol": "https",
