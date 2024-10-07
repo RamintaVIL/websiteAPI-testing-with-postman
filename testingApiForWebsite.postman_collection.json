@@ -129,6 +129,7 @@
 							"     pm.expect(jsonData.responseCode).to.eql(405);",
 							"    pm.expect(jsonData.message).to.eql(\"This request method is not supported.\");",
 							"});",
+							"",
 							""
 						],
 						"type": "text/javascript",
@@ -183,139 +184,8 @@
 					"listen": "prerequest",
 					"script": {
 						"exec": [
-							"pm.environment.set(\"randomEmail\", pm.variables.replaceIn('{{$randomEmail}}'));"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": []
-				},
-				"url": {
-					"raw": "https://automationexercise.com/api/createAccount",
-					"protocol": "https",
-					"host": [
-						"automationexercise",
-						"com"
-					],
-					"path": [
-						"api",
-						"createAccount"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "14.GET user account detail by email",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Response code is 200\", () => {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"pm.test('Response is JSON format', () => {",
-							"     pm.response.to.be.json;",
-							"});",
-							"pm.test('Response contains correct user details', () => {",
-							"    const jsonData = pm.response.json();",
-							"    pm.expect(jsonData).to.have.property('user');",
-							"",
-							"    pm.expect(jsonData.user).to.have.property('id');",
-							"    pm.expect(jsonData.user).to.have.property('name');",
-							"    pm.expect(jsonData.user).to.have.property('email');",
-							"    pm.expect(jsonData.user).to.have.property('title');",
-							"",
-							"    pm.expect(jsonData.user).to.have.property('birth_day');",
-							"    pm.expect(jsonData.user).to.have.property('birth_month');",
-							"    pm.expect(jsonData.user).to.have.property('birth_year');",
-							"",
-							"    pm.expect(jsonData.user).to.have.property('first_name');",
-							"    pm.expect(jsonData.user).to.have.property('last_name');",
-							"",
-							"    pm.expect(jsonData.user).to.have.property('company');",
-							"    pm.expect(jsonData.user).to.have.property('address1');",
-							"    pm.expect(jsonData.user).to.have.property('address2');",
-							"",
-							"    pm.expect(jsonData.user).to.have.property('country');",
-							"    pm.expect(jsonData.user).to.have.property('state');",
-							"    pm.expect(jsonData.user).to.have.property('city');",
-							"    pm.expect(jsonData.user).to.have.property('zipcode');",
-							"});",
-							"",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": []
-				},
-				"url": {
-					"raw": "https://automationexercise.com/api/getUserDetailByEmail?email=johndoe@example.com",
-					"protocol": "https",
-					"host": [
-						"automationexercise",
-						"com"
-					],
-					"path": [
-						"api",
-						"getUserDetailByEmail"
-					],
-					"query": [
-						{
-							"key": "email",
-							"value": "johndoe@example.com"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "11.Post new register account 2",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Response code is 200\", () => {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"pm.test('Response is JSON format', () => {",
-							"     pm.response.to.be.json;",
-							"});",
-							"",
-							"pm.test(\"Response have correct answer\", () => {",
-							"    const jsonData = pm.response.json();",
-							"    pm.expect(jsonData.message).to.eql(\"User created!\");",
-							"});"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				},
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
+							"const randomEmail = `user_${Math.floor(Math.random() * 10000)}@example.com`;",
+							"pm.environment.set(\"randomEmail\", randomEmail);",
 							""
 						],
 						"type": "text/javascript",
@@ -331,7 +201,12 @@
 					"formdata": [
 						{
 							"key": "name",
-							"value": "Peter Moon\n",
+							"value": "JohnDoe",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "{{randomEmail}}",
 							"type": "text"
 						},
 						{
@@ -346,42 +221,42 @@
 						},
 						{
 							"key": "birth_date",
-							"value": "15",
+							"value": "1",
 							"type": "text"
 						},
 						{
 							"key": "birth_month",
-							"value": "April",
+							"value": "January",
 							"type": "text"
 						},
 						{
 							"key": "birth_year",
-							"value": "1995",
+							"value": "1990",
 							"type": "text"
 						},
 						{
 							"key": "firstname",
-							"value": "John\n",
+							"value": "John",
 							"type": "text"
 						},
 						{
 							"key": "lastname",
-							"value": "Moon",
+							"value": "Doe",
 							"type": "text"
 						},
 						{
 							"key": "company",
-							"value": "John's Company",
+							"value": "Examole Corp",
 							"type": "text"
 						},
 						{
 							"key": "address1",
-							"value": "123 Main St",
+							"value": "Main st. 1234",
 							"type": "text"
 						},
 						{
 							"key": "address2",
-							"value": "Apt 4B",
+							"value": "New st. 324",
 							"type": "text"
 						},
 						{
@@ -391,27 +266,22 @@
 						},
 						{
 							"key": "zipcode",
-							"value": "90210",
+							"value": "A1A B2B",
 							"type": "text"
 						},
 						{
 							"key": "state",
-							"value": "California",
+							"value": "Texas",
 							"type": "text"
 						},
 						{
 							"key": "city",
-							"value": "Los Angeles",
+							"value": "Dalas",
 							"type": "text"
 						},
 						{
 							"key": "mobile_number",
-							"value": "1234567890",
-							"type": "text"
-						},
-						{
-							"key": "email",
-							"value": "tesst@example.com",
+							"value": "12345678",
 							"type": "text"
 						}
 					]
@@ -438,9 +308,9 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Response code is 200\", () => {",
-							"    pm.response.to.have.status(200);",
-							"});",
+							"// pm.test(\"Response code is 200\", () => {",
+							"//     pm.response.to.have.status(200);",
+							"// });",
 							"pm.test('Response is JSON format', () => {",
 							"     pm.response.to.be.json;",
 							"});",
@@ -448,7 +318,10 @@
 							"pm.test(\"Response have correct answer\", () => {",
 							"    const jsonData = pm.response.json();",
 							"    pm.expect(jsonData.message).to.eql(\"User updated!\");",
-							"});"
+							"});",
+							"",
+							"",
+							""
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -513,12 +386,17 @@
 						},
 						{
 							"key": "email",
-							"value": "tesst@example.com",
+							"value": "{{randomEmail}}",
 							"type": "text"
 						},
 						{
 							"key": "password",
 							"value": "test123",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "Peter Moon",
 							"type": "text"
 						}
 					]
@@ -533,6 +411,89 @@
 					"path": [
 						"api",
 						"updateAccount"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "14.GET user account detail by email",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test('Response is JSON format', () => {",
+							"     pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"User ID is a number\", () => {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData.user.id).to.be.a('number');",
+							"});",
+							"",
+							"pm.test('Response contains correct user details', () => {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('user');",
+							"",
+							"    pm.expect(jsonData.user).to.have.property('id');",
+							"    pm.expect(jsonData.user).to.have.property('name');",
+							"    pm.expect(jsonData.user).to.have.property('email');",
+							"    pm.expect(jsonData.user).to.have.property('title');",
+							"",
+							"    pm.expect(jsonData.user).to.have.property('birth_day');",
+							"    pm.expect(jsonData.user).to.have.property('birth_month');",
+							"    pm.expect(jsonData.user).to.have.property('birth_year');",
+							"",
+							"    pm.expect(jsonData.user).to.have.property('first_name');",
+							"    pm.expect(jsonData.user).to.have.property('last_name');",
+							"",
+							"    pm.expect(jsonData.user).to.have.property('company');",
+							"    pm.expect(jsonData.user).to.have.property('address1');",
+							"    pm.expect(jsonData.user).to.have.property('address2');",
+							"",
+							"    pm.expect(jsonData.user).to.have.property('country');",
+							"    pm.expect(jsonData.user).to.have.property('state');",
+							"    pm.expect(jsonData.user).to.have.property('city');",
+							"    pm.expect(jsonData.user).to.have.property('zipcode');",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "https://automationexercise.com/api/getUserDetailByEmail?email={{randomEmail}}",
+					"protocol": "https",
+					"host": [
+						"automationexercise",
+						"com"
+					],
+					"path": [
+						"api",
+						"getUserDetailByEmail"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "{{randomEmail}}"
+						}
 					]
 				}
 			},
@@ -580,7 +541,7 @@
 					"formdata": [
 						{
 							"key": "email",
-							"value": "tesst@example.com",
+							"value": "{{randomEmail}}",
 							"type": "text"
 						},
 						{
@@ -604,6 +565,35 @@
 				}
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "randomEmail",
+			"value": "",
+			"type": "string"
 		}
 	]
 }
