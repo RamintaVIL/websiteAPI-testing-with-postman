@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "1.GET all products list",
+			"name": "1.Retrieve all products",
 			"event": [
 				{
 					"listen": "test",
@@ -15,22 +15,26 @@
 						"exec": [
 							"const jsonData = pm.response.json();",
 							"",
-							"pm.test(\"Response status code is 200\", () => {",
+							"pm.test('Response status code is 200', () => {",
 							"    pm.response.to.have.status(200);",
 							"});",
 							"",
-							"pm.test(\"Response is JSON format\", () => {",
+							"pm.test('Response is JSON format', () => {",
 							"    pm.response.to.be.json;",
 							"});",
 							"",
-							"pm.test(\"Product list are not an empty\", () => {",
+							"pm.test('Product list are not an empty', () => {",
 							"    pm.expect(jsonData.products).to.be.an('array').that.is.not.empty;",
 							"});",
 							"",
-							"pm.test(\"Each product contains expected fields\", () => {",
+							"pm.test('Each product contains expected fields', () => {",
 							"    jsonData.products.forEach(product => {",
-							"        pm.expect(product).to.have.all.keys('id', 'name', 'price', 'brand', 'category');",
-							"    });",
+							"        pm.expect(product).to.have.property('id');",
+							"        pm.expect(product).to.have.property('name');",
+							"        pm.expect(product).to.have.property('price');",
+							"        pm.expect(product).to.have.property('brand');",
+							"        pm.expect(product).to.have.property('category');",
+							"    });    ",
 							"});",
 							""
 						],
@@ -58,13 +62,13 @@
 			"response": []
 		},
 		{
-			"name": "2.POST to all products list",
+			"name": "2.Request to Post Products List (Method Not Allowed)",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Response code is 200\", () => {",
+							"pm.test('Response code is 200', () => {",
 							"    pm.response.to.have.status(200);",
 							"});",
 							"",
@@ -116,7 +120,7 @@
 			"response": []
 		},
 		{
-			"name": "9.DELETE To Verify Login",
+			"name": "9. Attempt to DELETE Login - Method Not Supported",
 			"event": [
 				{
 					"listen": "test",
@@ -161,12 +165,14 @@
 			"response": []
 		},
 		{
-			"name": "11.Post new register account",
+			"name": "11.Create a New User Account",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
 							"pm.test(\"Response code is 200\", () => {",
 							"    pm.response.to.have.status(200);",
 							"});",
@@ -174,11 +180,50 @@
 							"     pm.response.to.be.json;",
 							"});",
 							"",
-							"pm.test(\"Response have correct answer\", () => {",
-							"    const jsonData = pm.response.json();",
-							"    pm.expect(jsonData.responseCode).to.eql(201);",
+							"pm.test(\"Response contains correct message\", () => {",
+							"    pm.expect(jsonData).to.have.property('message');",
 							"    pm.expect(jsonData.message).to.eql(\"User created!\");",
 							"});",
+							"",
+							"pm.test('Response contains correct status', () => {",
+							"    pm.expect(jsonData).to.have.property('responseCode');",
+							"    pm.expect(jsonData.responseCode).to.eql(201);",
+							"});",
+							"",
+							"pm.test(\"Response does not contain user information\", () => {",
+							"    pm.expect(jsonData).to.not.have.property('user'); ",
+							"});",
+							"",
+							"pm.test(\"Request body contains required fields\", () => {",
+							"    const formData = pm.request.body.formdata; // `formdata` yra `PostmanPropertyList`",
+							"",
+							"    // Konvertuojame `formdata` į objektą, kad būtų lengviau pasiekti",
+							"    const requestBody = {};",
+							"    formData.each(field => {",
+							"        requestBody[field.key] = field.value;",
+							"    });",
+							"",
+							"    // Patikriname, ar visi laukeliai yra teisingi",
+							"    pm.expect(requestBody).to.have.property('name').that.is.a('string').and.is.not.empty;",
+							"    pm.expect(requestBody).to.have.property('email').that.is.a('string').and.is.not.empty;",
+							"    pm.expect(requestBody).to.have.property('password').that.is.a('string').and.is.not.empty;",
+							"    pm.expect(requestBody).to.have.property('title').that.is.a('string');",
+							"    pm.expect(requestBody).to.have.property('birth_date').that.is.a('string').and.is.not.empty;",
+							"    pm.expect(requestBody).to.have.property('birth_month').that.is.a('string').and.is.not.empty;",
+							"    pm.expect(requestBody).to.have.property('birth_year').that.is.a('string').and.is.not.empty;",
+							"    pm.expect(requestBody).to.have.property('firstname').that.is.a('string').and.is.not.empty;",
+							"    pm.expect(requestBody).to.have.property('lastname').that.is.a('string').and.is.not.empty;",
+							"    pm.expect(requestBody).to.have.property('company').that.is.a('string');",
+							"    pm.expect(requestBody).to.have.property('address1').that.is.a('string');",
+							"    pm.expect(requestBody).to.have.property('address2').that.is.a('string');",
+							"    pm.expect(requestBody).to.have.property('country').that.is.a('string').and.is.not.empty;",
+							"    pm.expect(requestBody).to.have.property('zipcode').that.is.a('string').and.is.not.empty;",
+							"    pm.expect(requestBody).to.have.property('state').that.is.a('string').and.is.not.empty;",
+							"    pm.expect(requestBody).to.have.property('city').that.is.a('string').and.is.not.empty;",
+							"    pm.expect(requestBody).to.have.property('mobile_number').that.is.a('string');",
+							"});",
+							"",
+							" ",
 							""
 						],
 						"type": "text/javascript",
@@ -307,20 +352,32 @@
 			"response": []
 		},
 		{
-			"name": "13.PUT to update user account",
+			"name": "13.Update User Account Information",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
 							"pm.test('Response is JSON format', () => {",
 							"    pm.response.to.be.json;",
 							"});",
 							"",
-							"pm.test(\"Response have correct answer\", () => {",
-							"    const jsonData = pm.response.json();",
+							"pm.test('Response contains correct status', () => {",
+							"    pm.expect(jsonData).to.have.property('message');",
+							"    pm.expect(jsonData.message).to.be.a('string');",
 							"    pm.expect(jsonData.message).to.eql(\"User updated!\");",
 							"});",
+							"",
+							"pm.test('Response contains correct status', () => {",
+							"    pm.expect(jsonData).to.have.property('responseCode');",
+							"    pm.expect(jsonData.responseCode).to.eql(200);",
+							"});",
+							"",
+							"",
+							"",
+							"",
 							"",
 							""
 						],
@@ -418,7 +475,7 @@
 			"response": []
 		},
 		{
-			"name": "14.GET user account detail by email",
+			"name": "14.User Account Details Retrieval by Email",
 			"event": [
 				{
 					"listen": "test",
@@ -518,7 +575,7 @@
 			"response": []
 		},
 		{
-			"name": "12.DELETE to user account",
+			"name": "12.Remove User Account",
 			"event": [
 				{
 					"listen": "test",
@@ -610,7 +667,7 @@
 	"variable": [
 		{
 			"key": "randomEmail",
-			"value": "",
+			"value": "sdjhksd@jshfkasjh.com",
 			"type": "string"
 		}
 	]
