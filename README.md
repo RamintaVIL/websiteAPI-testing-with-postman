@@ -42,10 +42,6 @@ Before you can run the test cases locally, ensure you have the following install
 -   **Node.js** – [Download Node.js]
 -   **Git** – [Download Git](https://git-scm.com)
 -   **Postman** – [Download Postman](https://www.postman.com/downloads/)
--   Newman (Postman's CLI) – You can install it globally using npm:
-    ```
-    npm install -g newman
-    ```
 
 ### 💻 Installation
 
