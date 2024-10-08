@@ -48,8 +48,8 @@ The test suite consists of the following 7 test cases, covering different types 
 Before you can run the test cases locally, ensure you have the following installed:
 
 -   **Node.js** – [Download Node.js]
--   **Git** – Download Git
--   **Postman** -
+-   **Git** – [Download Git](https://git-scm.com)
+-   **Postman** – [Download Postman](https://www.postman.com/downloads/)
 -   Newman (Postman's CLI) – You can install it globally using npm:
     ```
     npm install -g newman
