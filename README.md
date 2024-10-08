@@ -1,49 +1,41 @@
-# API Testing with Postman & Newman
+# 🌍 API Testing with Postman & Newman
 
-This project implements automated API tests using Postman to test the API documented at Automation Exercise API. The test suite includes a mix of GET, POST, PUT, and DELETE requests, with checks for response status codes and assertions for response body formats. The API accepts data in form-data format.
+This project implements automated API tests using Postman and Newman to test the API documented at Automation Exercise API. The test suite includes a variety of GET, POST, PUT, and DELETE requests, with validations for response status codes and checks for response body formats. The API accepts data in form-data format.
 
-## Test Cases
+## 🧪 Test Cases
 
 The test suite consists of the following 7 test cases, covering different types of requests. Each test case is designed to verify both the status and the structure of the response.
 
-1. GET /productsList
-   Method: GET
-   Endpoint: /productsList
-   Description: Retrieves the entire list of products available in the system.
+1. #### 🛒 GET /productsList
 
-2. POST /productsList
-   Method: POST
-   Endpoint: /productsList
-   Description: Adds a new product to the product list using form-data. The request should include necessary product details like name, price, and category.
+    Retrieves the entire list of products available in the system.
 
-3. DELETE /verifyLogin
-   Method: DELETE
-   Endpoint: /verifyLogin
-   Description: Deletes the login session of a user, effectively logging them out.
+2. #### 🚫 POST /productsList - Verifying Unsupported Methods
 
-4. POST /createAccount
-   Method: POST
-   Endpoint: /createAccount
-   Description: Creates a new user account by submitting user details (e.g., name, email, password) via form-data.
+    Verifies that a POST request is not supported for the /productsList endpoint, which should only support GET requests.
 
-5. DELETE /deleteAccount
-   Method: DELETE
-   Endpoint: /deleteAccount
-   Description: Deletes an existing user account. Requires user authentication and the user ID to be passed in the request.
+3. #### 🔑 DELETE /verifyLogin - Invalid Request Method
 
-6. PUT /updateAccount
-   Method: PUT
-   Endpoint: /updateAccount
-   Description: Updates an existing user account’s details (e.g., name, email, password). This requires passing the updated information via form-data.
+    Attempts to delete a user login session using the /verifyLogin endpoint with a DELETE request, which is not supported by the API.
 
-7. GET /getAccountDetailByEmail
-   Method: GET
-   Endpoint: /getAccountDetailByEmail
-   Description: Fetches the account details of a user based on their email address.
+4. #### 👤 POST /createAccount
 
-## 🎯 Getting Started
+    Creates a new user account by submitting user details (e.g., name, email, password) via form-data.
 
-### 💫 Prerequisites
+5. #### 🗑 DELETE /deleteAccount
+
+    Deletes an existing user account. Requires user authentication and the user email to be passed in the request.
+
+6. #### ✏️ PUT /updateAccount
+
+    Updates an existing user account’s details (e.g., name, email, password). This requires passing the updated information via form-data.
+
+7. #### 📧 GET /getAccountDetailByEmail
+    Fetches the account details of a user based on their email address.
+
+## 🚀 Getting Started
+
+### ⚙️ Prerequisites
 
 Before you can run the test cases locally, ensure you have the following installed:
 
@@ -69,7 +61,7 @@ To get the project set up locally, follow these steps:
     npm install
     ```
 
-### 💨 Running Locally
+### ▶️ Running Locally
 
 You can run the tests using Newman, either in interactive or headless mode:
 
