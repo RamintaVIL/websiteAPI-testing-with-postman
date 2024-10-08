@@ -1,6 +1,6 @@
 # 🌍 API Testing with Postman & Newman
 
-This project implements automated API tests using Postman and Newman to test the API documented at Automation Exercise API. The test suite includes a variety of GET, POST, PUT, and DELETE requests, with validations for response status codes and checks for response body formats. The API accepts data in form-data format.
+This project implements automated API tests using Postman and Newman to test the API documented at [Automation Exercise API](https://automationexercise.com/api_list). The test suite includes a variety of GET, POST, PUT, and DELETE requests, with validations for response status codes and checks for response body formats. The API accepts data in form-data format.
 
 ## 🧪 Test Cases
 
