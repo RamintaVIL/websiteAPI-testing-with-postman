@@ -77,7 +77,3 @@ Once the tests are complete, the results will be displayed in the terminal or in
 ### 🙋🏽‍♀️ Authors
 
 [RamintaVIL](https://github.com/RamintaVIL)
-
-### 📜 License
-
-Distributed under the ISC License. See [LICENSE.txt](./LICENSE.txt) for more information.
